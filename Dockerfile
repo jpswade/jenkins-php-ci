@@ -1,6 +1,6 @@
 FROM centos:7
-
 MAINTAINER James Wade <jpswade@gmail.com>
+ENV JENKINS_HOME=/root/.jenkins
 ADD http://pkg.jenkins-ci.org/redhat/jenkins.repo /etc/yum.repos.d/jenkins.repo
 RUN rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key && \
     yum install -y php-intl phpunit java jenkins ant wget php-pear git && \
@@ -11,18 +11,19 @@ RUN rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key && \
     wget https://phar.phpunit.de/phpcpd.phar && chmod +x phpcpd.phar && mv phpcpd.phar /usr/local/bin/phpcpd && \
     wget http://phpdox.de/releases/phpdox.phar && chmod +x phpdox.phar && mv phpdox.phar /usr/bin/phpdox && \
     chkconfig jenkins on
-RUN wget http://updates.jenkins-ci.org/latest/git.hpi -P /var/lib/jenkins/plugins && \
-wget http://updates.jenkins-ci.org/latest/checkstyle.hpi -P /var/lib/jenkins/plugins && \
-wget http://updates.jenkins-ci.org/latest/cloverphp.hpi -P /var/lib/jenkins/plugins && \
-wget http://updates.jenkins-ci.org/latest/crap4j.hpi -P /var/lib/jenkins/plugins && \
-wget http://updates.jenkins-ci.org/latest/dry.hpi -P /var/lib/jenkins/plugins && \
-wget http://updates.jenkins-ci.org/latest/htmlpublisher.hpi -P /var/lib/jenkins/plugins && \
-wget http://updates.jenkins-ci.org/latest/jdepend.hpi -P /var/lib/jenkins/plugins && \
-wget http://updates.jenkins-ci.org/latest/plot.hpi -P /var/lib/jenkins/plugins && \
-wget http://updates.jenkins-ci.org/latest/pmd.hpi -P /var/lib/jenkins/plugins && \
-wget http://updates.jenkins-ci.org/latest/violations.hpi -P /var/lib/jenkins/plugins && \
-wget http://updates.jenkins-ci.org/latest/warnings.hpi -P /var/lib/jenkins/plugins && \
-wget http://updates.jenkins-ci.org/latest/xunit.hpi -P /var/lib/jenkins/plugins
+RUN mkdir -p $JENKINS_HOME/plugins && \
+wget http://updates.jenkins-ci.org/latest/git.hpi -P $JENKINS_HOME/plugins && \
+wget http://updates.jenkins-ci.org/latest/checkstyle.hpi -P $JENKINS_HOME/plugins && \
+wget http://updates.jenkins-ci.org/latest/cloverphp.hpi -P $JENKINS_HOME/plugins && \
+wget http://updates.jenkins-ci.org/latest/crap4j.hpi -P $JENKINS_HOME/plugins && \
+wget http://updates.jenkins-ci.org/latest/dry.hpi -P $JENKINS_HOME/plugins && \
+wget http://updates.jenkins-ci.org/latest/htmlpublisher.hpi -P $JENKINS_HOME/plugins && \
+wget http://updates.jenkins-ci.org/latest/jdepend.hpi -P $JENKINS_HOME/plugins && \
+wget http://updates.jenkins-ci.org/latest/plot.hpi -P $JENKINS_HOME/plugins && \
+wget http://updates.jenkins-ci.org/latest/pmd.hpi -P $JENKINS_HOME/plugins && \
+wget http://updates.jenkins-ci.org/latest/violations.hpi -P $JENKINS_HOME/plugins && \
+wget http://updates.jenkins-ci.org/latest/warnings.hpi -P $JENKINS_HOME/plugins && \
+wget http://updates.jenkins-ci.org/latest/xunit.hpi -P $JENKINS_HOME/plugins
 
 EXPOSE 8080
 
