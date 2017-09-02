@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 docker-machine ip || docker-machine start
 eval $(docker-machine env)
-mkdir -p .jenkins
-docker run -p 8080:8080 -v ${PWD}/.jenkins:/root/.jenkins jenkins-php-ci
+docker stop jenkins-php-ci
+docker rm jenkins-php-ci
+docker run -p 8080:8080 --name jenkins-php-ci -d jenkins-php-ci
+#docker exec -it jenkins-php-ci bash
