@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/jpswade/jenkins-php-ci.svg?branch=master)](https://travis-ci.org/jpswade/jenkins-php-ci)
+
 # Jenkins PHP CI
 
 This is a Jenkins setup for PHP continuous integration.
