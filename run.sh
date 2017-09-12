@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 docker-machine ip || docker-machine start
 eval $(docker-machine env)
 docker stop jenkins-php-ci
