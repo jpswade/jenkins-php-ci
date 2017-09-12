@@ -13,6 +13,11 @@ RUN pear install PHP_CodeSniffer && \
 
 ADD setup.sh /setup.sh
 ADD example.xml /example.xml
+
+# Fixes: Failed to get D-Bus connection: Operation not permitted
+RUN mkdir -p /etc/selinux/targeted/contexts/
+RUN echo '<busconfig><selinux></selinux></busconfig>' > /etc/selinux/targeted/contexts/dbus_contexts
+
 RUN sh /setup.sh
 
 EXPOSE 8080
